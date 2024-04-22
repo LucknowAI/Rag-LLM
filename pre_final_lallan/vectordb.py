@@ -5,6 +5,7 @@ import os
 from dotenv import load_dotenv
 from typing import Iterable
 from pinecone import Pinecone, ServerlessSpec
+from utils import create_document_list_from_local
 
 load_dotenv()
 
@@ -45,8 +46,10 @@ class DocSearch:
             pinecone_api_key=api_key,
         )
 
-    def add_documents(self, docs: Iterable[str], chunk_size: Optional[int] = 350):
-        self.docsearch.add_texts(texts=docs, embedding_chunk_size=chunk_size)
+    def add_documents(self, path: str, chunk_size: Optional[int] = 350):
+        self.docsearch.add_texts(
+            texts=create_document_list_from_local(path), embedding_chunk_size=chunk_size
+        )
 
 
 docsearch = DocSearch(
