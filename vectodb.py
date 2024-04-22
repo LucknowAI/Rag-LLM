@@ -1,10 +1,11 @@
 from langchain_pinecone import PineconeVectorStore
 from langchain_community.embeddings import HuggingFaceEmbeddings
+from typing import Optional
 
 
 class DocSearch:
-    def __init__(self, model_name, index_name, api_key):
-        self.embeddings = HuggingFaceEmbeddings(model_name)
+    def __init__(self, index_name, api_key, model_name: Optional[str] = None):
+        self.embeddings = HuggingFaceEmbeddings(model_name=model_name)
         self.docsearch = PineconeVectorStore(
             index_name=index_name,
             embedding=self.embeddings,
