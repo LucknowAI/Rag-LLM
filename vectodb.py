@@ -1,6 +1,10 @@
 from langchain_pinecone import PineconeVectorStore
 from langchain_community.embeddings import HuggingFaceEmbeddings
 from typing import Optional
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 
 class DocSearch:
@@ -16,5 +20,5 @@ class DocSearch:
 docsearch = DocSearch(
     model_name="sentence-transformers/paraphrase-MiniLM-L6-v2",
     index_name="quickstart",
-    api_key="fea6d7eb-1b48-4a28-afe5-df253dbe3e1d",
+    api_key=os.getenv("PINECONE_API_KEY"),
 )
