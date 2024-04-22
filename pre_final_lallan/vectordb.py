@@ -5,25 +5,39 @@ import os
 from dotenv import load_dotenv
 from typing import Iterable
 from pinecone import Pinecone, ServerlessSpec
+
 load_dotenv()
 
-class Upload_db:
-    def upload(DATA, API_KEY, NAME, DIMENSIONS, METRIC, EMBEDDING_MODEL : Optional[str] = 'sentence-transformers/paraphrase-MiniLM-L6-v2'):
+
+class Create_vectordb_Pinecone:
+    def create(
+        DATA,
+        API_KEY,
+        NAME,
+        DIMENSIONS,
+        METRIC,
+        EMBEDDING_MODEL: Optional[
+            str
+        ] = "sentence-transformers/paraphrase-MiniLM-L6-v2",
+    ):
         pc = Pinecone(api_key=API_KEY)
         pc.create_index(
-            name= NAME,
+            name=NAME,
             dimension=DIMENSIONS,
-            metric= METRIC,
-            spec =ServerlessSpec(
-                cloud= "aws",
-                region="us-east-1"
-            )
+            metric=METRIC,
+            spec=ServerlessSpec(cloud="aws", region="us-east-1"),
         )
         db = PineconeVectorStore.from_documents(DATA, embedding=EMBEDDING_MODEL)
         return db
 
+
 class DocSearch:
-    def __init__(self, index_name, api_key, model_name: Optional[str] = 'sentence-transformers/paraphrase-MiniLM-L6-v2'):
+    def __init__(
+        self,
+        index_name,
+        api_key,
+        model_name: Optional[str] = "sentence-transformers/paraphrase-MiniLM-L6-v2",
+    ):
         self.embeddings = HuggingFaceEmbeddings(model_name=model_name)
         self.docsearch = PineconeVectorStore(
             index_name=index_name,
@@ -31,6 +45,8 @@ class DocSearch:
             pinecone_api_key=api_key,
         )
 
+    def add_documents(self, docs: Iterable[str], chunk_size: Optional[int] = 350):
+        self.docsearch.add_texts(texts=docs, embedding_chunk_size=chunk_size)
 
 
 docsearch = DocSearch(
