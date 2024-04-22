@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI,status, HTTPException
 from utils import write_to_json, fc
 from rchain import rag_chain
 from fastapi.responses import HTMLResponse, FileResponse
@@ -34,10 +34,21 @@ async def read_root():
 
 @app.get("/chat/{user_id}/{prompt}")
 async def chat(user_id: str, prompt: str):
-    response = rag_chain.invoke(prompt)
+    try:
+
+        response = rag_chain.invoke(prompt)
+
+    except Exception as e:
+
+        write_to_json({'user_id': user_id ,"prompt": prompt, "response" : str(e)}, 'errors.json')
+
+        return {
+             HTTPException(status_code = 404, detail = 'try_again')
+    }
 
     write_to_json({"prompt": prompt, "response": response}, fc(user_id))
     write_to_json({"user": user_id}, "user.json")
+    
     return {
         f"{user_id}": prompt,
         "Lallan": f"""{response}"""

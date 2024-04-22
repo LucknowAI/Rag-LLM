@@ -1,4 +1,4 @@
-from vectodb import docsearch
+from vectordb import docsearch
 from langchain_core.output_parsers import StrOutputParser
 from llms import llm
 from langchain_core.runnables import RunnablePassthrough
