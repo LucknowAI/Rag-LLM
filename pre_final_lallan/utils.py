@@ -32,11 +32,9 @@ def format_docs(docs):
     return "\n\n".join(doc.page_content for doc in docs)
 
 
-auth = Auth.Token("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")
-g = Github(auth=auth)
-
-
-def unstructure_docs():
+def unstructure_docs(auth_token: str):
+    auth = Auth.Token(auth_token)
+    g = Github(auth=auth)
     repo = g.get_repo("LucknowAI/Lucknow-LLM")
     contents = repo.get_contents("lucknowllm/data/Unstructured_data")
     text = []
