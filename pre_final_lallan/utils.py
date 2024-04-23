@@ -35,15 +35,28 @@ def write_to_json(data, filename):
 
 
 def fc(user_id):
+    """
+    This function is used to create email filename of user to store data
+    :param user_id:
+    :return:
+    """
     email_filename = "queries" + f"\\{user_id}.json"
     return email_filename
 
 
 def format_docs(docs):
+    """"
+    This function is used to format the documents data
+    """
     return "\n\n".join(doc.page_content for doc in docs)
 
 
 def unstructured_docs(auth_token: str):
+    """
+    This method is used to get the unstructured data from GitHub
+    :param auth_token: authentication token
+    :return: text
+    """
     auth = Auth.Token(auth_token)
     g = Github(auth=auth)
     repo = g.get_repo("LucknowAI/Lucknow-LLM")
@@ -59,6 +72,11 @@ def unstructured_docs(auth_token: str):
 
 
 def create_document_list_from_local(path):
+    """
+    This method creates a list of documents from local directory
+    :param path: path to local directory
+    :return: documents list
+    """
     document_list = []
     if os.path.isdir(path):
         for root, dirs, files in os.walk(path):

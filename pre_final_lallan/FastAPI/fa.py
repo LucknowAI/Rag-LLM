@@ -8,8 +8,8 @@ from fastapi import FastAPI, HTTPException
 from fastapi.responses import HTMLResponse, FileResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
-from utils import write_to_json, fc
-from rchain import rag_chain
+from pre_final_lallan.utils import write_to_json, fc
+from pre_final_lallan.rchain import rag_chain
 
 
 app = FastAPI()
@@ -38,11 +38,11 @@ async def chat(user_id: str, prompt: str):
         response = rag_chain.invoke(prompt)
     except Exception as e:
         write_to_json(data={'user_id': user_id, "prompt": prompt, "response": str(e)},
-                      filename='recorded_data/errors.json')
+                      filename='../recorded_data/errors.json')
         return {
              HTTPException(status_code=404, detail='try_again')}
     write_to_json(data={"prompt": prompt, "response": response}, filename=fc(user_id))
-    write_to_json(data={"user": user_id}, filename="recorded_data/user.json")
+    write_to_json(data={"user": user_id}, filename="../recorded_data/user.json")
     return {
         f"{user_id}": prompt,
         "Lallan": f"""{response}"""

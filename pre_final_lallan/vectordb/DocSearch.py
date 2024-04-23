@@ -1,40 +1,8 @@
-"""
-This part of the code handles vector database.
-We are using Pinecone here.
-
-"""
-
 from langchain_pinecone import PineconeVectorStore
 from langchain_community.embeddings import HuggingFaceEmbeddings
 from typing import Optional
 import os
-from dotenv import load_dotenv
-from pinecone import Pinecone, ServerlessSpec
-from utils import create_document_list_from_local
-
-load_dotenv()
-
-
-class Create_vectordb_Pinecone:
-    def create(
-        DATA,
-        API_KEY,
-        NAME,
-        DIMENSIONS,
-        METRIC,
-        EMBEDDING_MODEL: Optional[
-            str
-        ] = "sentence-transformers/paraphrase-MiniLM-L6-v2",
-    ):
-        pc = Pinecone(api_key=API_KEY)
-        pc.create_index(
-            name=NAME,
-            dimension=DIMENSIONS,
-            metric=METRIC,
-            spec=ServerlessSpec(cloud="aws", region="us-east-1"),
-        )
-        db = PineconeVectorStore.from_documents(DATA, embedding=EMBEDDING_MODEL)
-        return db
+from pre_final_lallan.utils import create_document_list_from_local
 
 
 class DocSearch:

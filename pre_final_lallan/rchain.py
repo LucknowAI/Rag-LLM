@@ -3,12 +3,12 @@ This code is used to retrieve response from RAG
 This part of code is used in fa.py file which is also the root file.
 """
 
-from vectordb import docsearch
+from pre_final_lallan.vectordb.DocSearch import docsearch
 from langchain_core.output_parsers import StrOutputParser
-from llms import llm
+from pre_final_lallan.LLM.llms import llm
 from langchain_core.runnables import RunnablePassthrough
 from utils import format_docs
-from propmt import prompt_character
+from pre_final_lallan.prompts.propmt import prompt_character
 
 
 retriever = docsearch.docsearch.as_retriever(search_kwargs={"k": 4})

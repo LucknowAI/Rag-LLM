@@ -4,9 +4,9 @@ This file provides the UI for the Rag-LLM
 
 
 import streamlit as st
-from utils import write_to_json
+from pre_final_lallan.utils import write_to_json
 import os
-from rchain import rag_chain
+from pre_final_lallan.rchain import rag_chain
 
 st.set_page_config(
     page_title="Lallan Lucknow AI",
@@ -70,7 +70,7 @@ if prompt := st.chat_input(
     with st.chat_message("assistant"):
         st.markdown(a)
     email_filename = os.path.join(
-        "queries", f"{st.session_state.email.split('@')[0]}.json"
+        "../queries", f"{st.session_state.email.split('@')[0]}.json"
     )
     queries_folder = "queries"
     if not os.path.exists(queries_folder):
