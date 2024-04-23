@@ -1,7 +1,12 @@
+"""
+This file provides the UI for the Rag-LLM
+"""
+
+
 import streamlit as st
-from utils import write_to_json
+from pre_final_lallan.utils import write_to_json
 import os
-from rchain import rag_chain
+from pre_final_lallan.rchain import rag_chain
 
 st.set_page_config(
     page_title="Lallan Lucknow AI",
@@ -13,10 +18,15 @@ st.set_page_config(
 
 # Function to handle exceptions and store them in a JSON file
 def handle_exception(exception):
+    """
+    Stores errors so devs can fix them.
+    :param exception: exception raised
+    :return: None
+    """
     error_message = str(exception)
     st.error("Hme Lgta aap kuch aant shant dal diye hai")
     error_data = {"error_message": error_message}
-    write_to_json(error_data, "errors.json")
+    write_to_json(error_data, "recorded_data/errors.json")
 
 
 # try:
@@ -60,7 +70,7 @@ if prompt := st.chat_input(
     with st.chat_message("assistant"):
         st.markdown(a)
     email_filename = os.path.join(
-        "queries", f"{st.session_state.email.split('@')[0]}.json"
+        "../queries", f"{st.session_state.email.split('@')[0]}.json"
     )
     queries_folder = "queries"
     if not os.path.exists(queries_folder):
