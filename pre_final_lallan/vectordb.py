@@ -1,9 +1,14 @@
+"""
+This part of the code handles vector database.
+We are using Pinecone here.
+
+"""
+
 from langchain_pinecone import PineconeVectorStore
 from langchain_community.embeddings import HuggingFaceEmbeddings
 from typing import Optional
 import os
 from dotenv import load_dotenv
-from typing import Iterable
 from pinecone import Pinecone, ServerlessSpec
 from utils import create_document_list_from_local
 

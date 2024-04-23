@@ -1,3 +1,8 @@
+"""
+This file provides the UI for the Rag-LLM
+"""
+
+
 import streamlit as st
 from utils import write_to_json
 import os
@@ -13,10 +18,15 @@ st.set_page_config(
 
 # Function to handle exceptions and store them in a JSON file
 def handle_exception(exception):
+    """
+    Stores errors so devs can fix them.
+    :param exception: exception raised
+    :return: None
+    """
     error_message = str(exception)
     st.error("Hme Lgta aap kuch aant shant dal diye hai")
     error_data = {"error_message": error_message}
-    write_to_json(error_data, "errors.json")
+    write_to_json(error_data, "recorded_data/errors.json")
 
 
 # try:

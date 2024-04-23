@@ -1,3 +1,7 @@
+"""
+This file defines the settings of model used
+"""
+
 from langchain_google_genai import ChatGoogleGenerativeAI
 from dotenv import load_dotenv
 import os
