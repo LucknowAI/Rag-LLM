@@ -17,6 +17,7 @@ Retrieval-Augmented Generation (RAG) using Large Language Models (LLMs)
    An API for the RAG Chain has been created to allow other applications to use the RAG LLM. The base URL for the API will be provided shortly after hosting. This will allow you to make HTTP requests to the API and receive responses from the RAG LLM.
 
 Stay tuned for more updates and features!
+<br>
 3. **API for local RAG Chain**
    ```bash
    uvicorn fp:app --reload
