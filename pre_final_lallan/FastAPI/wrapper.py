@@ -15,4 +15,4 @@ class FastAPIChatClient:
             file_path = json_data.get("lol")
             return lallan_response
         else:
-            return None
+            return "Hme Lgta aap kuch aant shant dal diye hai"
