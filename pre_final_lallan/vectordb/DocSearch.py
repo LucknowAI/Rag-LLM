@@ -2,7 +2,13 @@ from langchain_pinecone import PineconeVectorStore
 from langchain_community.embeddings import HuggingFaceEmbeddings
 from typing import Optional
 import os
-from pre_final_lallan.utils import create_document_list_from_local
+import sys
+from dotenv import load_dotenv
+
+load_dotenv()
+
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+from utils import create_document_list_from_local
 
 
 class DocSearch:

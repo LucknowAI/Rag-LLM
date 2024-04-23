@@ -40,12 +40,16 @@ def fc(user_id):
     :param user_id:
     :return:
     """
-    email_filename = "queries" + f"\\{user_id}.json"
+    email_filename = os.path.join(
+        os.path.join(os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))),
+        "pre_final_lallan\queries",
+        f"{user_id}.json",
+    )
     return email_filename
 
 
 def format_docs(docs):
-    """"
+    """ "
     This function is used to format the documents data
     """
     return "\n\n".join(doc.page_content for doc in docs)
