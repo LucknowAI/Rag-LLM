@@ -18,7 +18,7 @@ Retrieval-Augmented Generation (RAG) using Large Language Models (LLMs)
 
 Stay tuned for more updates and features!
 3. **API for local RAG Chain**
-   '''bash
+   ```bash
    uvicorn fp:app --reload
-   '''
+   ```
 
