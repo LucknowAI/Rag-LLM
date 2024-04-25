@@ -2,34 +2,13 @@ from langchain_pinecone import PineconeVectorStore
 from langchain_community.embeddings import HuggingFaceEmbeddings
 from typing import Optional
 import os
+import sys
 from dotenv import load_dotenv
-from typing import Iterable
-from pinecone import Pinecone, ServerlessSpec
-from utils import create_document_list_from_local
 
 load_dotenv()
 
-
-class Create_vectordb_Pinecone:
-    def create(
-        DATA,
-        API_KEY,
-        NAME,
-        DIMENSIONS,
-        METRIC,
-        EMBEDDING_MODEL: Optional[
-            str
-        ] = "sentence-transformers/paraphrase-MiniLM-L6-v2",
-    ):
-        pc = Pinecone(api_key=API_KEY)
-        pc.create_index(
-            name=NAME,
-            dimension=DIMENSIONS,
-            metric=METRIC,
-            spec=ServerlessSpec(cloud="aws", region="us-east-1"),
-        )
-        db = PineconeVectorStore.from_documents(DATA, embedding=EMBEDDING_MODEL)
-        return db
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+from utils import create_document_list_from_local
 
 
 class DocSearch:
