@@ -30,14 +30,14 @@ def handle_exception(exception):
     error_message = str(exception)
     st.error("Hme Lgta aap kuch aant shant dal diye hai")
     error_data = {"error_message": error_message}
-    write_to_json(error_data, "recorded_data/errors.json")
+    write_to_json(error_data, os.path.join(os.getcwd(), "recorded_data\errors.json"))
 
 
 try:
     # Load chat engine
     if "rag_chain" not in st.session_state:
         st.session_state.rag_chain = FastAPIChatClient(
-            base_url="https://0ac6-49-36-210-150.ngrok-free.app/"
+            base_url="https://38ec-103-157-195-111.ngrok-free.app/"
         )
 
     # Load previous messages and email
@@ -53,6 +53,9 @@ try:
         st.header("Enter your email")
         email = st.text_input("Email")
         submitted = st.form_submit_button("Submit")
+        st.write(
+            "Note: Currently, Lallan does not retain context for sustaining a conversation, and at times, it may experience hallucinations."
+        )
         if submitted and email != "":
             st.write("Email entered successfully. You can now proceed further.")
             write_to_json(
@@ -80,7 +83,7 @@ try:
         st.chat_message("user").markdown(prompt)
         st.session_state.messages.append({"role": "user", "content": prompt})
         with st.spinner("Processing..."):
-            ob = FastAPIChatClient("https://4a2c-103-157-195-86.ngrok-free.app/")
+            ob = FastAPIChatClient("https://38ec-103-157-195-111.ngrok-free.app/")
             a = ob.chat(st.session_state.email.split("@")[0], prompt)
         with st.chat_message("assistant"):
             st.markdown(a)
@@ -88,13 +91,7 @@ try:
         queries_folder = "pre_final_lallan/queries"
         if not os.path.exists(queries_folder):
             os.makedirs(queries_folder)
-        print(email_filename, a)
-        write_to_json(
-            {"prompt": prompt, "answer": a},
-            email_filename,
-        )
+        write_to_json({"prompt": prompt, "answer": a}, email_filename)
         st.session_state.messages.append({"role": "assistant", "content": a})
-
-
 except Exception as e:
     handle_exception(e)
